@@ -1,13 +1,15 @@
 package com.beatstore.BeatStore.models;
 
 import jakarta.persistence.*;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import lombok.*;
 
 @Entity
+@Data               // Genera getters, setters, equals, hashCode y toString
+@NoArgsConstructor  // Constructor vacío (necesario para JPA)
+@AllArgsConstructor // Constructor con todos los atributos
+@Builder            // Permite usar el patrón builder (opcional pero útil)
 @Table(name = "users")
 public class User {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,42 +17,4 @@ public class User {
 
     private String username;
     private String email;
-
-    // Constructores
-    public User() {}
-
-    public User(String username, String email) {
-        this.username = username;
-        this.email = email;
-    }
-
-    // Getters y setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
-
-
-
-
-
