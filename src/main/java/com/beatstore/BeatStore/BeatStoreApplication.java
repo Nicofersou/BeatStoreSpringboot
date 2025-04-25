@@ -14,14 +14,6 @@ public class BeatStoreApplication {
 		SpringApplication.run(BeatStoreApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner demo(UserRepository repository) {
-		return (args) -> {
-			// Insertamos un usuario de prueba para forzar la creación de la tabla
-			User user = new User("testuser", "test@example.com");
-			repository.save(user);
-			System.out.println("Usuario insertado.");
-		};
-	}
+
 }
 
