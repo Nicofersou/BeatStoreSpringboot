@@ -2,7 +2,10 @@ package com.beatstore.BeatStore.controllers;
 
 import com.beatstore.BeatStore.models.User;
 import com.beatstore.BeatStore.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +36,9 @@ public class UserController {
 
     // POST /api/users
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+        User savedUser = userService.createUser(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     // DELETE /api/users/{id}
