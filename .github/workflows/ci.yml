@@ -1,14 +1,17 @@
+# .github/workflows/java-ci.yml
+
 name: Java CI
 
 on:
   push:
-    branches: [ master, develop ]
+    branches:
+      - master
   pull_request:
-    branches: [ master, develop ]
+    branches:
+      - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -23,10 +26,3 @@ jobs:
 
       - name: Construir con Maven
         run: mvn clean install
-
-      - name: Publicar resultados de tests
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: target/surefire-reports
