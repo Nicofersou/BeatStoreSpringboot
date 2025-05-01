@@ -1,5 +1,6 @@
 package com.beatstore.BeatStore.unit.services;
 
+import com.beatstore.BeatStore.models.Role;
 import com.beatstore.BeatStore.models.User;
 import com.beatstore.BeatStore.repositories.UserRepository;
 import com.beatstore.BeatStore.services.UserService;
@@ -42,6 +43,7 @@ class UserServiceTest {
         rawUser.setUsername("testuser");
         rawUser.setEmail("test@example.com");
         rawUser.setPassword("plainPassword");
+        rawUser.setRole(Role.BUYER);
 
         // Supongamos que este es el hash resultante
         String hashedPassword = "$2a$10$ABC123";
@@ -63,8 +65,8 @@ class UserServiceTest {
     @Test
     void testGetAllUsers() {
         List<User> users = Arrays.asList(
-                new User(1L, "ana", "ana@email.com", "abc123abc"),
-                new User(2L, "pedro", "pedro@email.com", "abc123abc")
+                new User(1L, "ana", "ana@email.com", "abc123abc", Role.BUYER),
+                new User(2L, "pedro", "pedro@email.com", "abc123abc", Role.BUYER)
         );
 
         when(userRepository.findAll()).thenReturn(users);
@@ -77,7 +79,7 @@ class UserServiceTest {
 
     @Test
     void testGetUserById() {
-        User user = new User(1L, "carlos", "carlos@email.com", "abc123abc");
+        User user = new User(1L, "carlos", "carlos@email.com", "abc123abc",Role.BUYER);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
