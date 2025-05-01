@@ -1,5 +1,7 @@
 package com.beatstore.BeatStore.integration.controller;
 
+
+import com.beatstore.BeatStore.models.Beat;
 import com.beatstore.BeatStore.models.User;
 import com.beatstore.BeatStore.repositories.BeatRepository;
 import com.beatstore.BeatStore.repositories.PurchaseRepository;
@@ -10,17 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
-  class UserControllerTest {
+ class BeatControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -29,13 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     private PurchaseRepository purchaseRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private BeatRepository beatRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
@@ -44,30 +41,45 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         userRepository.deleteAll();
     }
 
-    @Test
-    void shouldCreateUserWithHashedPassword() throws Exception{
 
-        String jsonRequest = """
+    @Test
+    void shouldCreateBeat() throws Exception{
+
+        String user = """
                 {
                     "username": "integrationuser",
                     "email": "integration@example.com",
                     "password": "secure123"
+                    
                 }
                 """;
         mockMvc.perform(post("/api/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(user))
+                .andExpect(status().isCreated());
+
+        String beatJson = """
+        {
+              "title": "Energetic Trap Beat",
+              "genre": "Trap",
+              "bpm": 140,
+              "price": 19.99,
+              "downloadUrl": "https://example.com/beats/trap1",
+              "seller": {
+                "id": 1
+              }
+            }
+        """;
+
+        mockMvc.perform(post("/api/beats")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(beatJson))
                 .andExpect(status().isCreated());
 
         // Recuperar el usuario de la base de datos
-        User user = userRepository.findByUsername("integrationuser").orElse(null);
-        assertThat(user).isNotNull();
-        assertThat(user.getEmail()).isEqualTo("integration@example.com");
-
-        // Verificar que la contraseña está hasheada
-        assertThat(user.getPassword()).isNotEqualTo("secure123");
-        assertThat(passwordEncoder.matches("secure123", user.getPassword())).isTrue();
-
+        Beat beat = beatRepository.findByTitle("Energetic Trap Beat").orElse(null);
+        assertThat(beat).isNotNull();
+        assertThat(beat.getGenre()).isEqualTo("Trap");
 
     }
 
