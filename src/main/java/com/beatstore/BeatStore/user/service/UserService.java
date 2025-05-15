@@ -1,7 +1,7 @@
-package com.beatstore.BeatStore.services;
+package com.beatstore.BeatStore.user.service;
 
-import com.beatstore.BeatStore.models.User;
-import com.beatstore.BeatStore.repositories.UserRepository;
+import com.beatstore.BeatStore.user.model.User;
+import com.beatstore.BeatStore.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

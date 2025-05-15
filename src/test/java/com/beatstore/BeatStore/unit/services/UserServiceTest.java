@@ -1,9 +1,9 @@
 package com.beatstore.BeatStore.unit.services;
 
-import com.beatstore.BeatStore.models.Role;
-import com.beatstore.BeatStore.models.User;
-import com.beatstore.BeatStore.repositories.UserRepository;
-import com.beatstore.BeatStore.services.UserService;
+import com.beatstore.BeatStore.shared.Role;
+import com.beatstore.BeatStore.user.model.User;
+import com.beatstore.BeatStore.user.repository.UserRepository;
+import com.beatstore.BeatStore.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

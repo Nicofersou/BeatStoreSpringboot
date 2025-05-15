@@ -1,4 +1,4 @@
-package com.beatstore.BeatStore.dto;
+package com.beatstore.BeatStore.purchase.dto;
 
 import lombok.Data;
 

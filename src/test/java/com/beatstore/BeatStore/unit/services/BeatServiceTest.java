@@ -1,11 +1,10 @@
 package com.beatstore.BeatStore.unit.services;
 
-import com.beatstore.BeatStore.models.Beat;
-import com.beatstore.BeatStore.models.Role;
-import com.beatstore.BeatStore.models.User;
-import com.beatstore.BeatStore.repositories.BeatRepository;
-import com.beatstore.BeatStore.services.BeatService;
-import org.aspectj.lang.annotation.Before;
+import com.beatstore.BeatStore.beat.model.Beat;
+import com.beatstore.BeatStore.shared.Role;
+import com.beatstore.BeatStore.user.model.User;
+import com.beatstore.BeatStore.beat.repository.BeatRepository;
+import com.beatstore.BeatStore.beat.service.BeatService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
