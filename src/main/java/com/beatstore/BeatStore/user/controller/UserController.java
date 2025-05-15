@@ -1,7 +1,7 @@
-package com.beatstore.BeatStore.controllers;
+package com.beatstore.BeatStore.user.controller;
 
-import com.beatstore.BeatStore.models.User;
-import com.beatstore.BeatStore.services.UserService;
+import com.beatstore.BeatStore.user.model.User;
+import com.beatstore.BeatStore.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

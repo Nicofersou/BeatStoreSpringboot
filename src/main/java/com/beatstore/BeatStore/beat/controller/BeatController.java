@@ -1,12 +1,11 @@
-package com.beatstore.BeatStore.controllers;
+package com.beatstore.BeatStore.beat.controller;
 
 
-import com.beatstore.BeatStore.models.Beat;
-import com.beatstore.BeatStore.services.BeatService;
+import com.beatstore.BeatStore.beat.model.Beat;
+import com.beatstore.BeatStore.beat.service.BeatService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

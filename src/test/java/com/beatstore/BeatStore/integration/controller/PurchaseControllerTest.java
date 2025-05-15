@@ -1,10 +1,10 @@
 package com.beatstore.BeatStore.integration.controller;
 
-import com.beatstore.BeatStore.models.Beat;
-import com.beatstore.BeatStore.models.User;
-import com.beatstore.BeatStore.repositories.BeatRepository;
-import com.beatstore.BeatStore.repositories.PurchaseRepository;
-import com.beatstore.BeatStore.repositories.UserRepository;
+import com.beatstore.BeatStore.beat.model.Beat;
+import com.beatstore.BeatStore.user.model.User;
+import com.beatstore.BeatStore.beat.repository.BeatRepository;
+import com.beatstore.BeatStore.purchase.repository.PurchaseRepository;
+import com.beatstore.BeatStore.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 public class PurchaseControllerTest {
 
     @Autowired

@@ -1,6 +1,6 @@
-package com.beatstore.BeatStore.repositories;
+package com.beatstore.BeatStore.purchase.repository;
 
-import com.beatstore.BeatStore.models.Purchase;
+import com.beatstore.BeatStore.purchase.model.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.beatstore.BeatStore.services;
+package com.beatstore.BeatStore.beat.service;
 
-import com.beatstore.BeatStore.models.Beat;
-import com.beatstore.BeatStore.repositories.BeatRepository;
+import com.beatstore.BeatStore.beat.model.Beat;
+import com.beatstore.BeatStore.beat.repository.BeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

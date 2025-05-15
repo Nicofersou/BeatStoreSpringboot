@@ -1,5 +1,6 @@
-package com.beatstore.BeatStore.models;
+package com.beatstore.BeatStore.beat.model;
 
+import com.beatstore.BeatStore.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
