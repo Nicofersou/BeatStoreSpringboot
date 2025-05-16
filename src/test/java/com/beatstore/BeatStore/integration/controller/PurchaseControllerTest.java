@@ -5,6 +5,7 @@ import com.beatstore.BeatStore.user.model.User;
 import com.beatstore.BeatStore.beat.repository.BeatRepository;
 import com.beatstore.BeatStore.purchase.repository.PurchaseRepository;
 import com.beatstore.BeatStore.user.repository.UserRepository;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -106,7 +108,6 @@ public class PurchaseControllerTest {
 
     @Test
     void shouldReturnEmptyPurchasesForNewUser() throws Exception {
-        // Crear un usuario de prueba
         String userJson = """
         {
             "username": "buyer1",
@@ -115,16 +116,30 @@ public class PurchaseControllerTest {
         }
     """;
 
-        mockMvc.perform(post("/api/users")
+        MvcResult result = mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userJson))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andReturn();
 
-        // Llamar al endpoint de compras por usuario
-        mockMvc.perform(get("/api/purchases/user/1"))
+        String responseContent = result.getResponse().getContentAsString();
+        Object idObj = JsonPath.read(responseContent, "$.id");
+        Long userId;
+
+        if (idObj instanceof Integer) {
+            userId = ((Integer) idObj).longValue();
+        } else if (idObj instanceof Long) {
+            userId = (Long) idObj;
+        } else {
+            throw new IllegalStateException("Unexpected id type: " + idObj.getClass());
+        }
+
+        mockMvc.perform(get("/api/purchases/user/" + userId))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
+
+
 
 }
 
