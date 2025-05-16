@@ -14,8 +14,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
@@ -100,5 +103,28 @@ public class PurchaseControllerTest {
 
 
     }
+
+    @Test
+    void shouldReturnEmptyPurchasesForNewUser() throws Exception {
+        // Crear un usuario de prueba
+        String userJson = """
+        {
+            "username": "buyer1",
+            "email": "buyer1@example.com",
+            "password": "test123"
+        }
+    """;
+
+        mockMvc.perform(post("/api/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson))
+                .andExpect(status().isCreated());
+
+        // Llamar al endpoint de compras por usuario
+        mockMvc.perform(get("/api/purchases/user/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+    }
+
 }
 

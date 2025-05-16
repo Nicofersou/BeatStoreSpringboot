@@ -6,10 +6,9 @@ import com.beatstore.BeatStore.purchase.model.Purchase;
 import com.beatstore.BeatStore.purchase.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/purchases")
@@ -23,5 +22,12 @@ public class PurchaseController {
         Purchase purchase = purchaseService.createPurchase(request.getBuyerId(), request.getBeatId());
         return ResponseEntity.status(201).body(purchase);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Purchase>> getPurchasesByUser(@PathVariable Long userId) {
+        List<Purchase> purchases = purchaseService.getPurchasesByUser(userId);
+        return ResponseEntity.ok(purchases);
+    }
+
 
 }

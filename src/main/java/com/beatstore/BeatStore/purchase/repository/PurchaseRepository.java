@@ -8,4 +8,6 @@ import java.util.List;
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     List<Purchase> findByBuyerId(Long buyerId);
     List<Purchase> findByBeatId(Long beatId);
+    boolean existsByBuyerIdAndBeatId(Long buyerId, Long beatId);
+
 }

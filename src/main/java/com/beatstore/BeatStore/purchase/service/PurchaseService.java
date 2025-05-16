@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +36,21 @@ public class PurchaseService {
 
         return purchaseRepository.save(purchase);
     }
+
+    public List<Purchase> getPurchasesByUser(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new EntityNotFoundException("User not found");
+        }
+        return purchaseRepository.findByBuyerId(userId);
+    }
+
+
+    public boolean hasUserPurchasedBeat(Long buyerId, Long beatId) {
+        return purchaseRepository.existsByBuyerIdAndBeatId(buyerId, beatId);
+    }
+
+
+
+
 
 }
